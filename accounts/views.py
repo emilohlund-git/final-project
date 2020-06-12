@@ -6,46 +6,45 @@ from django.contrib import messages, auth
 from django.urls import reverse
 from .forms import UserLoginForm, UserRegistrationForm
 from django.template.context_processors import csrf
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 def index(request):
-    """A view that displays the index page"""
-    return render(request, "index.html")
+    """Return the index.html file"""
+    return render(request,  'index.html')
 
-    
+
+@login_required
 def logout(request):
-    """A view that logs the user out and redirects back to the index page"""
+    """Log the user out"""
     auth.logout(request)
-    messages.success(request, 'You have successfully logged out')
+    messages.success(request, "You have successfully been logged out")
     return redirect(reverse('index'))
 
 
 def login(request):
-    """A view that manages the login form"""
-    if request.method == 'POST':
-        user_form = UserLoginForm(request.POST)
-        if user_form.is_valid():
-            user = auth.authenticate(request.POST['username_or_email'],
+    """Return a login page"""
+    if request.user.is_authenticated:
+        return redirect(reverse('index'))
+    if request.method == "POST":
+        login_form = UserLoginForm(request.POST)
+
+        if login_form.is_valid():
+            user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password'])
+            messages.success(request, "You have successfully logged in!")
 
             if user:
-                auth.login(request, user)
-                messages.error(request, "You have successfully logged in")
-
-                if request.GET and request.GET['next'] !='':
-                    next = request.GET['next']
-                    return HttpResponseRedirect(next)
-                else:
-                    return redirect(reverse('index'))
+                auth.login(user=user, request=request)
+                return redirect(reverse('index'))
             else:
-                user_form.add_error(None, "Your username or password are incorrect")
+                login_form.add_error(
+                    None, "Your username or password is incorrect")
     else:
-        user_form = UserLoginForm()
-
-    args = {'user_form': user_form, 'next': request.GET.get('next', '')}
-    return render(request, 'login.html', args)
+        login_form = UserLoginForm()
+    return render(request, 'login.html', {'login_form': login_form})
 
 
 @login_required
@@ -54,25 +53,32 @@ def profile(request):
     return render(request, 'profile.html')
 
 
-def register(request):
-    """A view that manages the registration form"""
-    if request.method == 'POST':
-        user_form = UserRegistrationForm(request.POST)
-        if user_form.is_valid():
-            user_form.save()
+def registration(request):
+    """Render the registration page"""
+    if request.user.is_authenticated:
+        return redirect(reverse('index'))
 
-            user = auth.authenticate(request.POST.get('email'),
-                                     password=request.POST.get('password1'))
+    if request.method == "POST":
+        registration_form = UserRegistrationForm(request.POST)
 
+        if registration_form.is_valid():
+            registration_form.save()
+
+            user = auth.authenticate(username=request.POST['username'],
+                                     password=request.POST['password1'])
             if user:
-                auth.login(request, user)
+                auth.login(user=user, request=request)
                 messages.success(request, "You have successfully registered")
-                return redirect(reverse('index'))
-
             else:
-                messages.error(request, "unable to log you in at this time!")
+                messages.error(
+                    request, "Unable to register your account at this time")
     else:
-        user_form = UserRegistrationForm()
+        registration_form = UserRegistrationForm()
+    return render(request, 'registration.html', {
+        "registration_form": registration_form})
 
-    args = {'user_form': user_form}
-    return render(request, 'register.html', args)
+
+def user_profile(request):
+    """The user's profile page"""
+    user = User.objects.get(email=request.user.email)
+    return render(request, 'profile.html', {"profile": user})
