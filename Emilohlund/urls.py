@@ -19,6 +19,7 @@ from django.conf.urls import url
 from accounts import urls as urls_accounts
 from products import urls as urls_products
 from checkout import urls as urls_checkout
+from search import urls as urls_search
 from cart import urls as urls_cart
 from django.views import static
 from home.views import index
@@ -30,6 +31,7 @@ urlpatterns = [
     path('accounts/', include(urls_accounts)),
     path('products/', include(urls_products)),
     path('cart/', include(urls_cart)),
+    path('search/', include(urls_search)),
     url(r'^checkout/', include(urls_checkout)),
     url(r'^media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT})
 ]

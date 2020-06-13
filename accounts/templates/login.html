@@ -2,50 +2,6 @@
 {% block content %}
 <!-- NAVBAR -->
 <section name="navbar-section">
-    <nav id="nav">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Shop</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">About</a></li>
-            <li><a id="icon" class="fas fa-search"></a></li>
-            <li><a id="icon" class="far fa-heart"></a></li>
-            <li><a id="icon" class="fas fa-shopping-bag"></a></li>
-            {% if user.is_authenticated %}
-            <div class="dropdown">
-                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    {{ user }}
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="accounts/logout">Log out</a>
-                </div>
-            </div>
-            {% else %}
-            <div class="dropdown">
-                <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    Sign in
-                </a>       
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <div class="container">
-                    </div>
-            </div>
-            
-            {% endif %}
-        </ul>
-    </nav>
-    <hr>
-</section>
-<!-- HEADER -->
-<section name="header">
-    <div class="container">
-        <div id="header">
-            <p id="header-text">
-                Hello<br>
-                <button class="btn btn-primary">Click here</button>
-            </p>
-        </div>
-    </div>
+    You have to log in
 </section>
 {% endblock %}

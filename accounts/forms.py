@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+from products.models import Product
 
 
 class UserLoginForm(forms.Form):
@@ -9,6 +10,19 @@ class UserLoginForm(forms.Form):
 
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class AddItemForm(forms.Form):
+    """Form to be used for adding items"""
+
+    name = forms.CharField()
+    price = forms.CharField(widget=forms.NumberInput)
+    description = forms.CharField()
+    image = forms.ImageField()
+
+    class Meta:
+        model = Product
+        fields = ['name', 'price', 'description', 'image']
 
 
 class UserRegistrationForm(UserCreationForm):

@@ -3,4 +3,9 @@
 {% block content %}
 
 <!-- HEADER -->
+<form action="{% url 'add_item' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ add_item_form.as_p }}
+    <button type="submit">Submit</button>
+</form>
 {% endblock %}

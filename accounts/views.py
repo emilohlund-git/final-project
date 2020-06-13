@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages, auth
 from django.urls import reverse
-from .forms import UserLoginForm, UserRegistrationForm
+from .forms import UserLoginForm, UserRegistrationForm, AddItemForm
+from products.models import Product
 from django.template.context_processors import csrf
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -12,8 +13,13 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    """Return the index.html file"""  
+    """Return the index.html file"""
     return render(request,  'index.html')
+
+
+def add_item(request):
+    add_item_form = AddItemForm()
+    return render(request, 'add_item.html', {'add_item_form': add_item_form})
 
 
 @login_required
@@ -51,6 +57,30 @@ def login(request):
 def profile(request):
     """A view that displays the profile page of a logged in user"""
     return render(request, 'profile.html')
+
+
+def add_item(request):
+    """Adds an item to the DB"""
+    if request.method == "POST":
+        add_item_form = AddItemForm(request.POST)
+        if add_item_form.is_valid():
+            product_name = add_item_form.cleaned_data['name']
+            product_description = add_item_form.cleaned_data['description']
+            product_price = add_item_form.cleaned_data['price']
+            product_image = add_item_form.cleaned_data['image']
+            new_item = Product(
+                name=product_name,
+                description=product_description,
+                price=product_price,
+                image=product_image
+            )
+            new_item.save()
+            print("lol")
+    else:
+        add_item_form = AddItemForm()
+    return render(request, 'add_item.html', {
+        'add_item_form': add_item_form
+    })
 
 
 def registration(request):
