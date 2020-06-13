@@ -1,1 +1,16 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}{% block page_title %}Login Page{% endblock %} {% block page_heading %}Home{% endblock %}
+{% load bootstrap_tags %}
+{% block content %}
+
+<!-- HEADER -->
+<section name="header">
+    <div class="container">
+        <div id="header">
+            <p id="header-text">
+                Hello<br>
+                <button class="btn btn-primary">Click here</button>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,4 +1,5 @@
 {% load static %}
+{% load bootstrap_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,32 +20,47 @@
     <!-- NAVBAR -->
     <section name="navbar-section">
         <nav id="nav">
+            <h2 class="logo">Logo</h2>
             <ul>
-                <li><a id="active" href="#">Home</a></li>
-                <li><a href="news.asp">Shop</a></li>
-                <li><a href="contact.asp">Contact</a></li>
-                <li><a href="about.asp">About</a></li>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'products' %}">Shop</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">About</a></li>
                 <li><a id="icon" class="fas fa-search"></a></li>
                 <li><a id="icon" class="far fa-heart"></a></li>
-                <li><a id="icon" class="fas fa-shopping-bag"></a></li>
+                <li><a href="{% url 'checkout' %}" id="icon" class="fas fa-shopping-bag"></a></li>
+                <li>
+                    {% if user.is_authenticated %}
+                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        {{ user }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="accounts/logout">Log out</a>
+                    </div>
+                    {% else %}
+                    <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Sign in
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-container">
+                            <form method="POST" action="{% url 'login' %}?next={{ next }}" class="accountform">
+                                {% csrf_token %}
+                                {{ login_form | as_bootstrap }}
+                                <button class="form-btn" type="submit">Log in</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                </li>
             </ul>
         </nav>
         <hr>
     </section>
-    <!-- HEADER -->
-    <section name="header">
-        <div class="container">
-            <div id="header">
-                <p id="header-text">
-                    Hello<br>
-                    <button class="btn btn-primary">Click here</button>
-                </p>
-            </div>
-        </div>
-    </section>
 
     {% block content %}
-    {{ login_form.user }}
+
     {% endblock %}
 
     <!-- BOOTSTRAP JS -->

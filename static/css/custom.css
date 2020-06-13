@@ -1,5 +1,5 @@
 body {
-    line-height: 1;
+  line-height: 1;
 }
 #nav {
   text-align: right;
@@ -40,7 +40,6 @@ body {
 #nav #icon {
   padding-right: 5px;
   padding-left: 30px;
-  padding-top: 6px;
 }
 #active {
   color: rgb(173, 74, 74) !important;
@@ -63,21 +62,83 @@ hr {
   font-size: 10em;
   text-align: center;
   color: #fff;
+  text-shadow: 2px 2px #333;
 }
 .btn {
-    background-color: #333;
-    border: none;
-    border-color: #fff;
-    width: 150px;
-    height: 55px;
-    font-size: 23px;
-    text-transform: uppercase;
-    font-weight: 600;
+  background-color: #333;
+  border: none;
+  border-color: #fff;
+  width: 150px;
+  height: 55px;
+  font-size: 23px;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 .btn:hover {
-    background-color: #666;
-    border-color: #fff;
+  background-color: #666;
+  border-color: #fff;
 }
 .container {
   height: 600px;
+}
+
+.dropdown-container {
+  width: 100%;
+  padding: 15px 30px 15px 30px;
+  align-items: center;
+}
+
+.form-btn {
+  background-color: #333;
+  border: none;
+  border-color: #fff;
+  color: #fff;
+  width: 60px;
+  height: 35px;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.logo {
+  text-align: left;
+  padding-left: 50px;
+}
+
+.checkout_total {
+  font-size: 20px;
+  width: 100%;
+  background-color: #333;
+  text-align: center;
+  padding-top: 10px;
+  margin: 20px 0 20px 0;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 5px;
+  height: 60%;
+}
+
+.payment-btn {
+  font-size: 20px;
+  width: 100%;
+  background-color: #333;
+  text-align: center;
+  padding-top: 5px;
+  margin: 20px 0 20px 0;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 5px;
+  height: 3em;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+.lead {
+  font-weight: 500;
+}
+
+legend {
+  padding: 30px 0 30px 0;
 }
