@@ -33,7 +33,7 @@
     <header class="header-area overlay">
         <nav class="navbar navbar-expand-md navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">Collective Shop</a>
+                <a class="navbar-brand" href="{% url 'index' %}">Collective Shop</a>
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#main-nav"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="menu-icon-bar"></span>
@@ -45,7 +45,7 @@
                     <ul class="navbar-nav ml-auto">
                         <li><a class="nav-item nav-link" href="{% url 'index' %}">Home</a></li>
                         <li><a class="nav-item nav-link" href="{% url 'products' %}">Shop</a></li>
-                        <li><a class="nav-item nav-link" href="#">Contact</a></li>
+                        <li><a class="nav-item nav-link" href="{% url 'contact' %}">Contact</a></li>
                         <li><a class="nav-item nav-link" href="#">About</a></li>
                         <li>
                             <a href="{% url 'checkout' %}" id="icon" class="nav-item nav-link fas fa-shopping-bag">

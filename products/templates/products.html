@@ -3,12 +3,12 @@
 {% block content %}
 <div class="container">
     <div class="row d-flex justify-content-center">
+        {% if products %}
         {% for product in products %}
         <div class="col-4">
             <div class="card">
                 <div class="view overlay">
-                    <div class="product"
-                        style="background-image: url('{{ MEDIA_URL }}{{ product.image }}')">
+                    <div class="product" style="background-image: url('{{ MEDIA_URL }}{{ product.image }}')">
                     </div>
                 </div>
                 <div class="card-body">
@@ -33,6 +33,17 @@
             </div>
         </div>
         {% endfor %}
+        {% else %}
+        <div class="col-12">
+            <div class="banner">
+                <div class="container">
+                    <h1>Oh no!</h1>
+                    <p>The store seems to be empty at the moment, maybe add a product yourself?</p>
+                    <a href="{% url 'add_item' %}" class="button button-primary">Lets do it!</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

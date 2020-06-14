@@ -5,11 +5,8 @@
         <div class="container">
             <h1>{{ user }}</h1>
             <p>Your listed products</p>
-            {% for item in cart_items %}
-            {{ item.product }}
-            {% if item.product.username == user %}
-            <p>{{ item.product.name }}</p>
-            {% endif %}
+            {% for product in products %}
+            {{ product.name }}
             {% endfor %}
             <a href="{% url 'products' %}" class="button button-primary">Take me shopping!</a>
         </div>

@@ -56,7 +56,8 @@ def login(request):
 @login_required
 def profile(request):
     """A view that displays the profile page of a logged in user"""
-    return render(request, 'profile.html')
+    products = Product.objects.all()
+    return render(request, 'profile.html', {'products': products})
 
 
 def add_item(request):
