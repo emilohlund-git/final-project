@@ -14,80 +14,92 @@
 
 {% block content %}
 <div class="container">
-    <div class="row row-flex">
-        {% for item in cart_items %}
-        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6 col-md-4 display panel panel-default">
-            <div class="panel-body">
-                <div class="product" style="background-image: url('{{ MEDIA_URL }}{{ item.product.image }}')"></div>
-                <div class="caption">
+    <div class="row vertical-divider">
+        <div class="col-lg-4 col-sm-12">
+            <p class="checkout-lead">1. Billing Address</p>
+            <div class="row">
+                <div class="col-12 order-col">
+                    <form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
+                        {{ order_form | as_bootstrap }}
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
+                <p class="checkout-lead">2. Payment Method</p>
+                <div id="credit-card-errors" style="display: none;">
+                    <div class="alert-message block-message error" id="stripe-error-message"></div>
+                </div>
+                <div class="row">
+                    <div class="col-12 order-col">
+                        Credit Card Number
+                        {{ payment_form.credit_card_number }}
+                        <div class="row">
+                            <div class="col-4">
+                                CVV
+                                {{ payment_form.cvv }}
+                            </div>
+                            <div class="col-4">
+                                Month
+                                {{ payment_form.expiry_month }}
+                            </div>
+                            <div class="col-4">
+                                Year
+                                {{ payment_form.expiry_year }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% csrf_token %}
+            </form>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <p class="checkout-lead">3. Review Your Order</p>
+            <div class="row">
+                <div class="col-12 order-col">
+                    {% for item in cart_items %}
                     <div class="row">
-                        <div class="col-3">
-                            Item:
+                        <div class="col-4">
+                            <div class="card-header"
+                                style="background-image: url('{{ MEDIA_URL }}{{ item.product.image }}'); width: 50px; height: 50px; background-size: cover; background-repeat: no-repeat">
+                            </div>
+                        </div>
+                        <div class="col-4">
                             <h3>{{ item.product.name }}</h3>
                         </div>
-                        <div class="col-3">
-                            Description:
-                            <p class="product-description">{{ item.product.description }}</p>
+                        <div class="col-4">
+                            <div class="row float-right">
+                                <form class="form-inline" method="post" action="{% url 'remove_from_cart' item.id %}">
+                                    {% csrf_token %}
+                                    <p>${{ item.product.price }}</p>
+                                    <div class="col-2">
+                                        <button type="submit" class="btn btn-danger">X</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="col-3">
-                            Quantity:
-                            <p>{{ item.quantity }}</p>
+                    </div>
+                    {% endfor %}
+                    <div class="row float-right">
+                        <div class="col-12">
+                            {% if total > 0 %}
+                            <p class="checkout_total">Total: ${{ total }}</p>
+                            {% else %}
+                            Your cart seems to be empty, head over to the <a class="text-white"
+                                href="{% url 'products' %}">shop</a> to find something to fill it up with!
+                            {% endif %}
                         </div>
-                        <div class="col-3">
-                            Price:
-                            <p>{{ item.product.price }}</p>
+                        <div class="form-group col-12">
+                            <input class="btn btn-primary submit-order-button" id="submit_payment_btn" name="commit"
+                                type="submit" value="Submit Payment" form="payment-form">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
-
-    <div class="row">
-        <div class="col-12">
-            <form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
-                <legend>Payment Details</legend>
-                <div id="credit-card-errors" style="display: none;">
-                    <div class="alert-message block-message error" id="stripe-error-message"></div>
-                </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group col-md-6">
-            {{ order_form | as_bootstrap }}
-        </div>
-        <div class="form-group col-md-6">
-            <p class="lead">Credit Card Number</p>
-            {{ payment_form.credit_card_number }}
-            <div class="row">
-                <div class="col-4">
-                    <p class="lead">CVV</p>
-                    {{ payment_form.cvv }}
-                </div>
-                <div class="col-4">
-                    <p class="lead">Month</p>
-                    {{ payment_form.expiry_month }}
-                </div>
-                <div class="col-4">
-                    <p class="lead">Year</p>
-                    {{ payment_form.expiry_year }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <p class="checkout_total">Total: ${{ total }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {% csrf_token %}
-    <input class="payment-btn" id="submit_payment_btn" name="commit" type="submit" value="Submit Payment">
-    </form>
 </div>
-
 <script>
     function maxLengthCheck(object) {
         if (object.value.length > object.maxLength)

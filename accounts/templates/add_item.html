@@ -3,9 +3,18 @@
 {% block content %}
 
 <!-- HEADER -->
-<form action="{% url 'add_item' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ add_item_form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                {{ add_item_form.name }}
+                {{ add_item_form.description }}
+                {{ add_item_form.price }}
+                {{ add_item_form.image }}
+            </div>
+        </div>
+        <button class="btn btn-primary add-file-button" type="submit">Submit</button>
+    </form>
+</div>
 {% endblock %}

@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Success!</h2>
-    <p>You are logged in as {{ user.email }} </p>
+<div class="col-12">
+    <div class="banner">
+        <div class="container">
+            <h1>{{ user }}</h1>
+            <p>Your listed products</p>
+            {% for item in cart_items %}
+            {{ item.product }}
+            {% if item.product.username == user %}
+            <p>{{ item.product.name }}</p>
+            {% endif %}
+            {% endfor %}
+            <a href="{% url 'products' %}" class="button button-primary">Take me shopping!</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -8,21 +8,23 @@ from products.models import Product
 class UserLoginForm(forms.Form):
     """Form to be used to log users in"""
 
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control bg-transparent', 'placeholder': 'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'form-control bg-transparent', 'placeholder': 'Password'}))
 
 
 class AddItemForm(forms.Form):
     """Form to be used for adding items"""
 
-    name = forms.CharField()
-    price = forms.CharField(widget=forms.NumberInput)
-    description = forms.CharField()
-    image = forms.ImageField()
-
-    class Meta:
-        model = Product
-        fields = ['name', 'price', 'description', 'image']
+    name = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control bg-transparent', 'placeholder': 'Name'}))
+    price = forms.CharField(widget=forms.NumberInput(
+        attrs={'class': 'form-control bg-transparent', 'placeholder': 'Price'}))
+    description = forms.CharField(widget=forms.Textarea(
+        attrs={'class': 'form-control bg-transparent', 'placeholder': 'Description'}))
+    image = forms.ImageField(widget=forms.FileInput(
+        attrs={'class': 'form-control bg-transparent', 'placeholder': 'Description'}))
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -30,14 +32,18 @@ class UserRegistrationForm(UserCreationForm):
 
     password1 = forms.CharField(
         label="Password",
-        widget=forms.PasswordInput)
+        widget=forms.PasswordInput(attrs={'class': 'form-control bg-transparent', 'placeholder': 'Password'}))
     password2 = forms.CharField(
         label="Password Confirmation",
-        widget=forms.PasswordInput)
+        widget=forms.PasswordInput(attrs={'class': 'form-control bg-transparent', 'placeholder': 'Password Confirmation'}))
 
     class Meta:
         model = User
         fields = ['email', 'username', 'password1', 'password2']
+        widgets = {
+            'email': forms.TextInput(attrs={'class': 'form-control bg-transparent', 'placeholder': 'E-mail'}),
+            'username': forms.TextInput(attrs={'class': 'form-control bg-transparent', 'placeholder': 'Username'})
+        }
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

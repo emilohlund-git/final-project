@@ -62,20 +62,23 @@ def profile(request):
 def add_item(request):
     """Adds an item to the DB"""
     if request.method == "POST":
-        add_item_form = AddItemForm(request.POST)
+        user = request.user.username
+        add_item_form = AddItemForm(request.POST, request.FILES)
         if add_item_form.is_valid():
-            product_name = add_item_form.cleaned_data['name']
-            product_description = add_item_form.cleaned_data['description']
-            product_price = add_item_form.cleaned_data['price']
-            product_image = add_item_form.cleaned_data['image']
+            product_name = request.POST['name']
+            product_description = request.POST['description']
+            product_price = request.POST['price']
+            product_image = request.FILES['image']
             new_item = Product(
                 name=product_name,
                 description=product_description,
                 price=product_price,
-                image=product_image
+                image=product_image,
+                username=user
             )
             new_item.save()
-            print("lol")
+
+            return redirect('products')
     else:
         add_item_form = AddItemForm()
     return render(request, 'add_item.html', {
@@ -83,7 +86,7 @@ def add_item(request):
     })
 
 
-def registration(request):
+def register(request):
     """Render the registration page"""
     if request.user.is_authenticated:
         return redirect(reverse('index'))

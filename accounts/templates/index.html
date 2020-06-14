@@ -1,6 +1,17 @@
 {% extends 'base.html' %}{% block page_title %}Login Page{% endblock %} {% block page_heading %}Home{% endblock %}
 {% load bootstrap_tags %}
 {% block content %}
-
-<!-- HEADER -->
+<div class="col-12">
+    <div class="banner">
+        <div class="container">
+            {% if user.is_authenticated %}
+            <h1>Welcome back {{ user }}</h1>
+            {% else %}
+            <h1>Welcome!</h1>
+            {% endif %}
+            <p>Click here if you wish to see all the products in stock.</p>
+            <a href="{% url 'products' %}" class="button button-primary">Take me shopping!</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
