@@ -9,7 +9,8 @@ from products.models import Product
 from django.template.context_processors import csrf
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-
+from django.core.mail import BadHeaderError, send_mail, EmailMessage
+from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 def index(request):
@@ -56,8 +57,7 @@ def login(request):
 @login_required
 def profile(request):
     """A view that displays the profile page of a logged in user"""
-    products = Product.objects.all()
-    return render(request, 'profile.html', {'products': products})
+    return render(request, 'profile.html')
 
 
 def add_item(request):
@@ -85,8 +85,7 @@ def add_item(request):
     return render(request, 'add_item.html', {
         'add_item_form': add_item_form
     })
-
-
+    
 def register(request):
     """Render the registration page"""
     if request.user.is_authenticated:
@@ -108,11 +107,12 @@ def register(request):
                     request, "Unable to register your account at this time")
     else:
         registration_form = UserRegistrationForm()
-    return render(request, 'registration.html', {
-        "registration_form": registration_form})
+    return render(request, 'registration.html', {"login_form": UserLoginForm,
+                                                 "registration_form": registration_form})
 
 
 def user_profile(request):
     """The user's profile page"""
     user = User.objects.get(email=request.user.email)
-    return render(request, 'profile.html', {"profile": user})
+    products = Product.objects.all()
+    return render(request, 'profile.html', {"profile": user, 'products': products})

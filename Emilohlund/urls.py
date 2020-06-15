@@ -35,5 +35,5 @@ urlpatterns = [
     path('search/', include(urls_search)),
     path('contact/', contact, name='contact'),
     url(r'^checkout/', include(urls_checkout)),
-    url(r'^media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT})
+    url(r'^media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT}),
 ]

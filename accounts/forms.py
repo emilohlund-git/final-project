@@ -22,7 +22,7 @@ class AddItemForm(forms.Form):
     price = forms.CharField(widget=forms.NumberInput(
         attrs={'class': 'form-control bg-transparent', 'placeholder': 'Price'}))
     description = forms.CharField(widget=forms.Textarea(
-        attrs={'class': 'form-control bg-transparent', 'placeholder': 'Description'}))
+        attrs={'class': 'form-control bg-transparent', 'placeholder': 'Description', 'rows': 3, 'cols': 15}))
     image = forms.ImageField(widget=forms.FileInput(
         attrs={'class': 'form-control bg-transparent', 'placeholder': 'Description'}))
 

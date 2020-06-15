@@ -5,10 +5,36 @@
         <div class="container">
             <h1>{{ user }}</h1>
             <p>Your listed products</p>
-            {% for product in products %}
-            {{ product.name }}
-            {% endfor %}
-            <a href="{% url 'products' %}" class="button button-primary">Take me shopping!</a>
+            <h4>You can click the red 'X' to remove the products.<h4>
+                <hr>
+                    <br>
+                    {% for item in products %}
+                    {% if item.username == request.user.username %}
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="card-header"
+                                style="background-image: url('{{ MEDIA_URL }}{{ item.image }}'); width: 50px; height: 50px; background-size: cover; background-repeat: no-repeat">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <h3>{{ item.name }}</h3>
+                        </div>
+                        <div class="col-4">
+                            <div class="row float-right">
+                                <form class="form-inline" method="post" action="{% url 'product_delete' item.id %}">
+                                    {% csrf_token %}
+                                    <p>${{ item.price }}</p>
+                                    <div class="col-2">
+                                        <button type="submit" class="btn btn-danger">X</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <hr>
+                    <a href="{% url 'products' %}" class="button button-primary">Take me shopping!</a>
         </div>
     </div>
 </div>

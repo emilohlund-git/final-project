@@ -6,8 +6,9 @@ from accounts.forms import UserLoginForm, UserRegistrationForm
 def index(request):
     """Return the index.html file"""
     login_form = {"login_form": UserLoginForm}
-    return render(request,  'index.html', login_form)
+    return render(request, 'index.html', login_form)
 
 def contact(request):
     """Return the contact.html file"""
-    return render(request, 'contact.html')
+    login_form = {"login_form": UserLoginForm}
+    return render(request, 'contact.html', login_form)
