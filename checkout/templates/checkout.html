@@ -16,46 +16,43 @@
 
 <div class="container">
     <div class="row vertical-divider">
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-6 col-sm-12">
             <p class="checkout-lead">1. Billing Address</p>
             <div class="row">
                 <div class="col-12 order-col">
                     <form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
+                        {% csrf_token %}
                         {{ order_form | as_bootstrap }}
+                        <br>
+                        <p class="checkout-lead">2. Payment Method</p>
+                        <div id="credit-card-errors" style="display: none;">
+                            <div class="alert-message block-message error" id="stripe-error-message"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 order-col">
+                                Credit Card Number
+                                {{ payment_form.credit_card_number }}
+                                <div class="row">
+                                    <div class="col-4">
+                                        CVV
+                                        {{ payment_form.cvv }}
+                                    </div>
+                                    <div class="col-4">
+                                        Month
+                                        {{ payment_form.expiry_month }}
+                                    </div>
+                                    <div class="col-4">
+                                        Year
+                                        {{ payment_form.expiry_year }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-sm-12">
-            <form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
-                {% csrf_token %}
-                <p class="checkout-lead">2. Payment Method</p>
-                <div id="credit-card-errors" style="display: none;">
-                    <div class="alert-message block-message error" id="stripe-error-message"></div>
-                </div>
-                <div class="row">
-                    <div class="col-12 order-col">
-                        Credit Card Number
-                        {{ payment_form.credit_card_number }}
-                        <div class="row">
-                            <div class="col-4">
-                                CVV
-                                {{ payment_form.cvv }}
-                            </div>
-                            <div class="col-4">
-                                Month
-                                {{ payment_form.expiry_month }}
-                            </div>
-                            <div class="col-4">
-                                Year
-                                {{ payment_form.expiry_year }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-6 col-sm-12">
             <p class="checkout-lead">3. Review Your Order</p>
             <div class="row">
                 <div class="col-12 order-col">
