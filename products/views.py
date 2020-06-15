@@ -16,6 +16,7 @@ def product_delete(request, pk):
     product = get_object_or_404(Product, pk=pk)  # Get current product
 
     if request.method == "POST":
+        request.session['cart'] = {}
         product.delete()
         return redirect('profile')
 

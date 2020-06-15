@@ -21,7 +21,6 @@ def checkout(request):
         order_form = OrderForm(request.POST)
         payment_form = MakePaymentForm(request.POST)
         if order_form.is_valid() and payment_form.is_valid():
-            print("wadloawdkopdwapok")
             order = order_form.save(commit=False)
             order.date = timezone.now()
             order.save()
@@ -55,7 +54,6 @@ def checkout(request):
             else:
                 messages.error(request, "Unable to take payment")
         else:
-            print("dokwpadkopwadkpo")
             print(payment_form.errors)
             messages.error(request, "We were unable to take a payment with that card!")
     else:
