@@ -17,6 +17,7 @@ def product_delete(request, pk):
 
     if request.method == "POST":
         request.session['cart'] = {}
+        request.session['order_line_item'] = {}
         product.delete()
         return redirect('profile')
 

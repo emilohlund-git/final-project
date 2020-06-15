@@ -421,10 +421,10 @@ input:-webkit-autofill:active {
 }
 .navbar .dropdown-menu {
   padding: 0;
-  background-color: transparent;
+  background-color: #4793aa;
 }
 .navbar .dropdown-menu .dropdown-item {
-  background: none;
+  background: #4793aa;
   position: relative;
   padding: 10px 20px;
   color: #fff;
@@ -436,7 +436,7 @@ input:-webkit-autofill:active {
   border-bottom: none;
 }
 .navbar .dropdown-menu .dropdown-item:hover {
-  background: transparent;
+  background: #4793aa;
   color: #33b3ca;
 }
 .navbar .dropdown-menu .dropdown-item::before {

@@ -20,6 +20,7 @@
             <p class="checkout-lead">1. Billing Address</p>
             <div class="row">
                 <div class="col-12 order-col">
+                    <!-- PAYMENT FORM START -->
                     <form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
                         {% csrf_token %}
                         {{ order_form | as_bootstrap }}
@@ -28,27 +29,9 @@
                         <div id="credit-card-errors" style="display: none;">
                             <div class="alert-message block-message error" id="stripe-error-message"></div>
                         </div>
-                        <div class="row">
-                            <div class="col-12 order-col">
-                                Credit Card Number
-                                {{ payment_form.credit_card_number }}
-                                <div class="row">
-                                    <div class="col-4">
-                                        CVV
-                                        {{ payment_form.cvv }}
-                                    </div>
-                                    <div class="col-4">
-                                        Month
-                                        {{ payment_form.expiry_month }}
-                                    </div>
-                                    <div class="col-4">
-                                        Year
-                                        {{ payment_form.expiry_year }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{ payment_form | as_bootstrap }}
                     </form>
+                    <!-- PAYMENT FORM END -->
                 </div>
             </div>
         </div>

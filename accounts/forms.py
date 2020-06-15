@@ -32,17 +32,17 @@ class UserRegistrationForm(UserCreationForm):
 
     password1 = forms.CharField(
         label="Password",
-        widget=forms.PasswordInput(attrs={'class': 'form-control bg-transparent', 'placeholder': 'Password'}))
+        widget=forms.PasswordInput(attrs={'class': 'form-control bg-transparent'}))
     password2 = forms.CharField(
         label="Password Confirmation",
-        widget=forms.PasswordInput(attrs={'class': 'form-control bg-transparent', 'placeholder': 'Password Confirmation'}))
+        widget=forms.PasswordInput(attrs={'class': 'form-control bg-transparent'}))
 
     class Meta:
         model = User
         fields = ['email', 'username', 'password1', 'password2']
         widgets = {
-            'email': forms.TextInput(attrs={'class': 'form-control bg-transparent', 'placeholder': 'E-mail'}),
-            'username': forms.TextInput(attrs={'class': 'form-control bg-transparent', 'placeholder': 'Username'})
+            'email': forms.TextInput(attrs={'class': 'form-control bg-transparent'}),
+            'username': forms.TextInput(attrs={'class': 'form-control bg-transparent'})
         }
 
     def clean_email(self):
