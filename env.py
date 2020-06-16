@@ -6,3 +6,4 @@ os.environ.setdefault("DATABASE_URL", "postgres://mreodrkoaewwab:9b471ea021d8ee1
 os.environ.setdefault("SECRET_KEY", "a@%lf8tpa99n_j42j30e2v)^6l7crgx09ttu81broul+oejr#u")
 os.environ.setdefault('AWS_ACCESS_KEY_ID', 'AKIA2AIR22C5ICEFZ5N2')
 os.environ.setdefault('AWS_SECRET_ACCESS_KEY', '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')
+os.environ.setdefault('EMAIL_PASSWORD', 'Emil1234')
