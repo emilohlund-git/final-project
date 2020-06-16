@@ -25,6 +25,7 @@ The process itself would look like:
 - You can remove the products from your cart at the checkout page (navigation bar > shopping bag symbol)
 - You can fill out the form at the checkout page to confirm a purchase (Test only)
 - You can search for products in the shop using the search bar.
+- All static files are uploaded and running via AWS S3 web services, such as CSS, JS, media files.
 
 ### Features Left to Implement
 
@@ -34,8 +35,10 @@ The process itself would look like:
 
 This project is created with Django 3.0.6 and Python. I've used Bootstrap for most of the styling.
 
-[Link to Bootstrap](https://getbootstrap.com/)
-[Link to Django](https://www.djangoproject.com/download/)
+- [Link to Bootstrap](https://getbootstrap.com/)
+- [Link to Django](https://www.djangoproject.com/download/)
+- [AWS S3](https://aws.amazon.com/s3/)
+- [Heroku](https://www.heroku.com/)
 
 ## Testing
 
@@ -45,8 +48,15 @@ There was a bug that occured when loading the checkout view, as I'm loading a pr
 
 I had some issues getting the smtp servers to work for mailing the password reset form, I was trying to use my one.com mail account which wouldn't work. I basically just switched to gmail and it worked instantly. I would probably try to get it to work with my own domain, but for this project I don't feel it's nescessary.
 
-## Deployment
+There's a lot of unused requirements in the requirements.txt file, I'm not sure how to filter out everything I've used for previous Python projects.
 
+## Deployment
+- Added a requirements.txt file using 'pip freeze > requirements.txt', so that Heroku knows which apps to install to get the project running.
+- Created a Procfile with 'web: gunicorn Emilohlund.wsgi:application' in it.
+- Pushed everything to Github.
+- Created an app at [Heroku](https://www.heroku.com). In the app I went to 'Settings' to hook up all the environmental variables that I'm using within the project.
+- Next step was going to 'Deploy' in the menu on Heroku. At the deployment method, set it to GitHub.
+- Then down to manual deploy and deploy branch.
 
 ## Credits
 
@@ -55,22 +65,4 @@ This navigation bar https://codepen.io/oskarborowski/pen/gZRLjV basically chose 
 
 ### Acknowledgements
 Thanks a lot to the tutor support team for helping me with basically every bug that occured when I was writing this project!
-
-
-
-
-Not working to upload data from form to Django DB, tried googling and implementing all fixes I could find but nothing works, wrote to tutor support
-
-Bug that occurs when adding more than 1 product to database, if you remove one of the items from profile page it gives you an 404 error.
-
-A lot of help from the Code Institute tutor support. Aswell as a lot of googling.
-
-Market type of website where you can upload products and purchase other users uploaded products.
-Vision of payment would be to take a percentage of the payments for services, rest of payment goes to seller.
-
-Shipment details would be sent to the seller to ship products themselves to the buyer.
-Obviously a lot of security would be going in to this if it were to be a real site.
-
-Such as signing contracts whenever a purchase is made so that you can't bail on the responsibility to send the product.
-Basically a proof of concept site.
 
