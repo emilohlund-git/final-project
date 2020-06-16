@@ -1,0 +1,1 @@
+web: gunicorn Emilohlund.wsgi:application
