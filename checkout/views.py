@@ -48,7 +48,7 @@ def checkout(request):
                 messages.error(request, "You have successfully paid")
                 request.session['cart'] = {}
                 product.delete()
-                return redirect(reverse('checkout'))
+                return redirect(reverse('payment_complete'))
             else:
                 messages.error(request, "Unable to take payment")
         else:
@@ -60,3 +60,7 @@ def checkout(request):
         order_form = OrderForm()
 
     return render(request, "checkout.html", {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE})
+
+def payment_complete(request):
+    """ Render payment_complete.html """
+    return render(request, 'payment_complete.html')
