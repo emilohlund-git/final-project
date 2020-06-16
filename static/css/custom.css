@@ -419,6 +419,14 @@ input:-webkit-autofill:active {
 .navbar-dark .navbar-nav .nav-link:hover {
   color: #fff;
 }
+input {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  color: #fff;
+}
+
 .navbar .dropdown-menu {
   padding: 0;
   background-color: #4793aa;

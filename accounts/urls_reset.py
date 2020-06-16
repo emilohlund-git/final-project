@@ -1,11 +1,17 @@
 from django.conf.urls import url
-from django.urls import reverse_lazy
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.urls import reverse_lazy, path
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    url('^$', PasswordResetView, {'post_reset_redirect': reverse_lazy('password_reset_done')}, name='password_reset'),
-    url(r'^done/$', PasswordResetDoneView, name='password_reset_done'),
-    url(r'^(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView,
-        {'post_reset_redirect': reverse_lazy('password_reset_complete')}, name='password_reset_confirm'),
-    url('^complete/$', PasswordResetCompleteView, name='password_reset_complete')
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="registration/password_reset.html"), name="reset_password"),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="registration/password_reset_done.html"), name="password_reset_done"),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="registration/password_reset_confirm.html"), name="password_reset_confirm"),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="registration/password_reset_complete.html"), name="password_reset_complete")
 ]
+
+'''
+1 - Submit email form                       //PasswordResetView.as_view()
+2 - Email sent success message              //PasswordResetDoneView.as_view()
+3 - Link to password reset form in email    //PasswordResetConfirmView.as_view()
+4 - Password successfully changed message   //PasswordResetCompleteView.as_view()
+'''
